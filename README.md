@@ -1,4 +1,24 @@
 # 🛋️ Monis Rent — Interactive Workspace Designer (MVP)
+*Built for the Desent Solutions Developer Challenge*
+
+## 📝 Challenge Write-Up
+
+### Approach
+Instead of building a traditional, static product catalog, I wanted to create a highly visual, tactile experience that puts the user right at their future desk. I built an interactive, 3D-perspective "Workspace Stage" where users can drop items into place and immediately see their office come to life. The focus was on removing friction—interactions are instant, items have satisfying spring physics, and users can toggle between a flat layout and an immersive 3D viewport. The goal was to make renting office gear feel as fun and inspiring as playing a design simulator.
+
+### Tech Choices
+- **Next.js (App Router)**: For a robust, fast foundation with clean routing and project structure.
+- **Zustand**: For lightning-fast global state management. This was crucial to ensure the canvas, catalog drawer, and live pricing ticker all stay perfectly in sync without prop-drilling or lag.
+- **Tailwind CSS**: For rapid, consistent styling, custom UI tokens, and handling the complex 3D perspective transforms purely via utility classes.
+- **Framer Motion**: To bring the desk to life with tactile spring-drop physics for equipment, while respecting accessibility (reduced motion).
+
+### What I'd Improve With More Time
+- **True 3D Models**: Integrate WebGL (React Three Fiber) to use actual 3D `.gltf` models instead of 2.5D CSS transforms, allowing users to rotate the furniture 360 degrees.
+- **Freeform Drag-and-Drop**: Move away from fixed "slots" and allow users to freely drag, rotate, and snap items anywhere on the desk surface using a grid system.
+- **Backend & Sharing**: Connect a database (like Supabase) to save user configurations so they can generate a unique URL to share their dream setup with friends before renting.
+- **Auth & Dashboard**: Add user authentication to let digital nomads track their active rentals, extend their leases, or request support directly from a dashboard.
+
+---
 
 > **Welcome home to your dream workspace!**  
 > An interactive, tactile office configuration web app inspired by the [monis.rent](https://monis.rent) rental subscription model. Instead of browsing a static, flat e-commerce table, you design your personal setup on an interactive desk stage with real-time monthly rental pricing, modular expansion pods, and zero-latency hardware switching.
