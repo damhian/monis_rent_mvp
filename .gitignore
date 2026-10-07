@@ -1,0 +1,9 @@
+node_modules
+.agent
+.agents
+.knowledge
+.next
+.docs
+Agent.md
+monis_rent_mvp_prd.md
+.vercel

@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-primary: #0f172a;
+    --brand-accent: #10b981;
+    --brand-accent-hover: #059669;
+    --canvas-bg: #f8fafc;
+    --surface-card: #ffffff;
+    --border-subtle: #e2e8f0;
+  }
+
+  body {
+    background-color: var(--canvas-bg);
+    color: var(--brand-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Tactile Workspace Canvas Background Grid */
+.workspace-grid {
+  background-image: radial-gradient(circle at 1px 1px, #cbd5e1 1.2px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Glassmorphism Surface */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Custom Scrollbar for Catalog Drawers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
