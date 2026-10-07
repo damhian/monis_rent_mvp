@@ -25,6 +25,16 @@
   background-size: 24px 24px;
 }
 
+/* Dark rough-plaster wall behind the workspace canvas (all noise is inline SVG) */
+.wall-texture {
+  background-color: #1b2630;
+  background-image:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(110, 231, 183, 0.16), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.45) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -0.55'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' seed='9' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.4 0 0 0 -0.52'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+}
+
 /* Glassmorphism Surface */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);

@@ -3,7 +3,7 @@ node_modules
 .agents
 .knowledge
 .next
-.docs
+docs
 Agent.md
 monis_rent_mvp_prd.md
 .vercel

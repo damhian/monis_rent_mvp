@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { X, Search, Sparkles } from "lucide-react";
+import { X, Search, Sparkles, Trash2 } from "lucide-react";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { CATALOG_ITEMS } from "@/data/catalog";
 import { Category, SlotId } from "@/types/workspace";
@@ -48,6 +48,10 @@ export const CatalogDrawer: React.FC = () => {
   const setCatalogOpen = useWorkspaceStore((s) => s.setCatalogOpen);
   const setActiveSlotModal = useWorkspaceStore((s) => s.setActiveSlotModal);
   const setActiveCategory = useWorkspaceStore((s) => s.setActiveCategory);
+  const slots = useWorkspaceStore((s) => s.slots);
+  const removeItem = useWorkspaceStore((s) => s.removeItem);
+
+  const equippedInActiveSlot = activeSlotModal ? slots[activeSlotModal] : undefined;
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -94,17 +98,16 @@ export const CatalogDrawer: React.FC = () => {
   return (
     <div
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-50 flex justify-end transition-[visibility] duration-300 ${
-        isOpen ? "visible pointer-events-auto" : "invisible pointer-events-none delay-300"
-      }`}
+      className="fixed inset-0 z-50 flex justify-end pointer-events-none"
     >
       {/* 
-        BACKDROP — Pure CSS opacity transition on GPU.
+        BACKDROP — always mounted, fades in/out with opacity.
+        pointer-events-auto only when visible so clicks pass through when closed.
       */}
       <div
         onClick={handleClose}
         className={`fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
 
@@ -115,7 +118,7 @@ export const CatalogDrawer: React.FC = () => {
       */}
       <div
         style={{ willChange: "transform" }}
-        className={`relative w-full max-w-xl bg-white shadow-2xl h-full flex flex-col z-10 border-l border-slate-200 transition-transform duration-300 ease-out ${
+        className={`relative w-full max-w-xl bg-white shadow-2xl h-full flex flex-col z-10 border-l border-slate-200 transition-transform duration-300 ease-out pointer-events-auto ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -159,6 +162,33 @@ export const CatalogDrawer: React.FC = () => {
           </div>
 
           {!activeSlotModal && <CategoryTabs className="mt-1" />}
+
+          {activeSlotModal && equippedInActiveSlot && (
+            <div className="flex items-center justify-between gap-3 px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-200">
+              <div className="min-w-0">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700">
+                  Currently equipped
+                </p>
+                <p className="text-xs font-bold text-slate-900 truncate">
+                  {equippedInActiveSlot.name}
+                  <span className="ml-1.5 font-semibold text-emerald-700">
+                    €{equippedInActiveSlot.monthlyPrice}/mo
+                  </span>
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  removeItem(activeSlotModal);
+                  handleClose();
+                }}
+                className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-rose-600 border border-rose-200 hover:bg-rose-600 hover:text-white hover:border-rose-600 transition-colors cursor-pointer"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                Remove
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Catalog Grid — Stagger animations run when open */}

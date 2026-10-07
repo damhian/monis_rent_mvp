@@ -1,16 +1,18 @@
 "use client";
 
-import React from "react";
-import { Check, Plus, Trash2, Monitor } from "lucide-react";
+import React, { useState } from "react";
+import { Check, Plus, Trash2, Monitor, ChevronDown } from "lucide-react";
 import { CatalogItem, SlotId } from "@/types/workspace";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { cn } from "@/lib/utils";
+import { ItemGraphic } from "../canvas/visuals/ItemGraphic";
 
 interface CatalogCardProps {
   item: CatalogItem;
 }
 
 export const CatalogCard: React.FC<CatalogCardProps> = ({ item }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const slots = useWorkspaceStore((s) => s.slots);
   const activeSlotModal = useWorkspaceStore((s) => s.activeSlotModal);
   const placeItem = useWorkspaceStore((s) => s.placeItem);
@@ -65,6 +67,11 @@ export const CatalogCard: React.FC<CatalogCardProps> = ({ item }) => {
       )}
     >
       <div>
+        {/* Visual Product Showcase Illustration */}
+        <div className="w-full h-24 sm:h-28 rounded-xl bg-linear-to-b from-slate-50 to-slate-100/70 border border-slate-100 flex items-center justify-center p-2 mb-2.5 overflow-hidden relative group-hover:bg-slate-100 transition-colors shadow-2xs">
+          <ItemGraphic itemId={item.id} item={item} compact />
+        </div>
+
         {/* Header: Brand, Badge & Setup Count */}
         <div className="flex items-center justify-between gap-2 mb-1.5">
           <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
@@ -91,14 +98,56 @@ export const CatalogCard: React.FC<CatalogCardProps> = ({ item }) => {
           {item.name}
         </h3>
 
-        {/* Short Description */}
-        <p className="mt-1 text-xs text-slate-600 line-clamp-2 leading-relaxed">
-          {item.description}
-        </p>
+        {/* Short Description + expand toggle */}
+        <div className="mt-1">
+          <p
+            className={`text-xs text-slate-600 leading-relaxed transition-all duration-300 ${
+              isExpanded ? "" : "line-clamp-2"
+            }`}
+          >
+            {item.description}
+          </p>
 
-        {/* Specs Pills */}
-        {item.specs && item.specs.length > 0 && (
-          <div className="mt-2.5 flex flex-wrap gap-1">
+          {/* Expandable Details: full specs + remaining description */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              isExpanded ? "max-h-64 opacity-100 mt-2" : "max-h-0 opacity-0"
+            }`}
+          >
+            {item.specs && item.specs.length > 0 && (
+              <div className="flex flex-wrap gap-1 pt-1">
+                {item.specs.map((spec, i) => (
+                  <span
+                    key={i}
+                    className="text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md"
+                  >
+                    {spec}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Toggle button — stops propagation so it never triggers equip */}
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setIsExpanded((v) => !v); }}
+            className="mt-1.5 flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 hover:text-emerald-600 transition-colors cursor-pointer select-none"
+            aria-expanded={isExpanded}
+            aria-label={isExpanded ? "Collapse details" : "Expand details"}
+          >
+            <ChevronDown
+              className={`w-3 h-3 transition-transform duration-200 ${
+                isExpanded ? "rotate-180" : ""
+              }`}
+            />
+            <span>{isExpanded ? "Less" : "Details"}</span>
+          </button>
+        </div>
+
+        {/* Specs Pills (collapsed preview — first 2 only) */}
+        {!isExpanded && item.specs && item.specs.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
             {item.specs.slice(0, 2).map((spec, i) => (
               <span
                 key={i}

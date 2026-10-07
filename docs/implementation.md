@@ -68,6 +68,26 @@
   - Document testing steps and run local dev server.
   - *Verification*: Production build succeeds with 0 errors.
 
+- [x] **Post-MVP Enhancement 1: Custom Artwork & Visual Feedback Engine**
+  - Built `src/components/canvas/visuals/ItemGraphic.tsx` providing distinctive, high-fidelity visual artwork for all items across chairs, desks, monitors, input, accessories, and pods.
+  - Replaced generic placeholder shapes in `ItemVisual.tsx` so equipment changes reflect immediately on the stage.
+  - Added visual thumbnail preview banners to all cards in `CatalogCard.tsx` and `ZonePod.tsx`.
+
+- [x] **Post-MVP Enhancement 2: Expanded Catalog Options & Centered Finish Selector**
+  - Expanded Keyboards, Mice, Lamps, and Plants from 1 option each to 3 curated options each (total inventory expanded to 28 products).
+  - Centered the desk finish color selector in the middle of the tabletop stage (`DeskCore.tsx`), eliminating any visual overlap with the right-hand desk plant and Qi charger.
+
+- [x] **Post-MVP Enhancement 3: 3D Viewport & Parallax Immersion**
+  - Added a global `is3d` state toggle allowing users to switch between standard flat view and a 3D perspective mode.
+  - Configured `WorkspaceCanvas` with a `perspective: 1400px` CSS stage and parallax tilt (`var(--tilt)`) tied to mouse position.
+  - Implemented a `Grounded` component in `DeskCore.tsx` to automatically stand items upright or lift and angle them appropriately on the desk plane.
+  - Added a dark `.wall-texture` background for improved contrast and atmosphere.
+
+- [x] **Post-MVP Enhancement 4: UX Streamlining & Label Readability**
+  - Removed hover-based interaction buttons from `ItemVisual.tsx` (which caused layout shift/mouse chase) and moved swap/remove logic entirely to a click-triggered `CatalogDrawer`.
+  - Added a "Currently equipped" header strip inside the drawer for slot-specific removal.
+  - Re-styled desk labels (Qi wireless charging, height keypad, model info) with solid backgrounds, bold text, and refined placement (`bottom-8 right-6` for Qi) to guarantee absolute readability in 3D mode without overlap.
+
 ---
 
 ## 🐛 Bug Tracker

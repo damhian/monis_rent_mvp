@@ -6,6 +6,7 @@ import { Plus, X, RefreshCw, Sparkles } from "lucide-react";
 import { CatalogItem, SlotId } from "@/types/workspace";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { cn } from "@/lib/utils";
+import { ItemGraphic } from "../canvas/visuals/ItemGraphic";
 
 interface ZonePodProps {
   slotId: SlotId;
@@ -63,6 +64,11 @@ export const ZonePod: React.FC<ZonePodProps> = ({
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col justify-between"
             >
+              {/* Product Visual Illustration */}
+              <div className="w-full h-24 rounded-xl bg-white border border-slate-200/60 flex items-center justify-center p-2 mb-2.5 shadow-2xs overflow-hidden">
+                <ItemGraphic itemId={item.id} item={item} compact />
+              </div>
+
               <div>
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                   {item.brand}

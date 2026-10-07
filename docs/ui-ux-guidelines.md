@@ -155,3 +155,19 @@ For monitor cards, users have granular control over workspace geometry:
 - **Scroll Lock & Pass-Through**: When drawer is open, backdrop click dismisses cleanly without triggering underlying canvas elements.
 - **Focus Rings**: High-contrast emerald focus outlines (`focus:ring-2 focus:ring-emerald-500`) on all search bars and interactive elements.
 
+### D. Visual Differentiation & Product Identity
+To build trust and provide delightful feedback:
+- **Zero Generic Placeholders**: Every item in the catalog has its own crafted visual artwork (`ItemGraphic.tsx`).
+- **Silhouette & Aspect Ratio Fidelity**: E.g., the LG DualUp renders in its authentic square 16:18 vertical aspect ratio with Ergo Arm clamp, while the Apple Studio Display renders with its silver aluminum chin and 5K wallpaper.
+- **Material Realism**: Chairs clearly show their mesh weaves (Aeron), spinal contours (Gesture), or 3D suspension web lattice (Sayl).
+
+### E. Stage Ergonomics & Control Positioning
+- **Centered Surface Controls**: The desk finish selector is placed in the dead center of the table with vertical offset, ensuring it never collides with or obscures rear accessories (such as the right-hand potted plant or left-hand desk lamp).
+- **Readable Labels in 3D**: Critical desk labels (e.g., Qi Charging Surface, Height Keypad) use high-contrast solid backgrounds when in 3D mode to combat lighting variance and prevent text-on-texture illegibility. The Qi label is explicitly positioned at the front-right (`bottom-8 right-6`) to avoid overlapping with rear desk plants or monitors.
+
+### F. Immersive 3D Viewport
+- **Perspective Toggle**: Users can flip the entire stage between "Flat" (2D planner layout) and "3D" (immersive perspective with 52-degree base tilt).
+- **Parallax Mouse Interaction**: In 3D mode, the entire desk stage softly tracks the user's cursor with a ±4 degree parallax nudge, creating a strong sense of depth.
+- **Organic Shadows & Posture**: Items in 3D generate realistic radial contact shadows. Elements are physically "stood up" (like plants or lamps) or "raised/tilted" (like keyboards) off the desk plane to sell the physical illusion without needing WebGL.
+- **Wall Texture**: A dark charcoal-teal SVG noise texture (`.wall-texture`) anchors the background, elevating the workspace stage and maintaining sharp contrast for floating UI elements like presets.
+

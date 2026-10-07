@@ -42,24 +42,23 @@ monis_rent_mvp/
 │   │   └── page.tsx                 # Main Workspace Designer page
 │   ├── components/
 │   │   ├── canvas/                  # Main interactive workspace stage
-│   │   │   ├── WorkspaceCanvas.tsx  # Central stage hosting desk and slots
-│   │   │   ├── DeskCore.tsx         # Desk surface and anchor slots
-│   │   │   ├── SlotItem.tsx         # Rendered item with spring physics
-│   │   │   └── SlotHotspot.tsx      # "+ Add Monitor!", "+ Place Plant" hotspots
+│   │   │   ├── WorkspaceCanvas.tsx  # Central stage hosting desk, 3D parallax, and slots
+│   │   │   ├── DeskCore.tsx         # Desk surface, center finish selector, and anchor slots
+│   │   │   ├── ItemVisual.tsx       # Rendered item with spring physics (hover tooltips removed)
+│   │   │   ├── SlotHotspot.tsx      # "+ Add Monitor!", "+ Place Plant" hotspots
+│   │   │   └── visuals/
+│   │   │       └── ItemGraphic.tsx  # Dedicated bespoke visual artwork engine for all items
 │   │   ├── catalog/                 # Equipment picker and category drawer
-│   │   │   ├── CatalogDrawer.tsx    # Slide-over/top drawer
+│   │   │   ├── CatalogDrawer.tsx    # Slide-over/top drawer with compositor CSS transitions
 │   │   │   ├── CategoryTabs.tsx     # Chairs, Desks, Tech, Accessories tabs
-│   │   │   └── CatalogCard.tsx      # Individual product card with specs & price
+│   │   │   └── CatalogCard.tsx      # Product card with illustrated preview & unequip
 │   │   ├── zones/                   # Expansion zones (below main desk)
-│   │   │   ├── ZoneContainer.tsx    # Horizontal switcher for pods
-│   │   │   ├── CoffeeStation.tsx    # Coffee machines, grinders, mugs
-│   │   │   ├── OutdoorGear.tsx      # Surfboards, bikes, active commute
-│   │   │   ├── RelaxZone.tsx        # Beanbags, lounge chairs, lamps
-│   │   │   └── GarageSpace.tsx      # Tool shelves, storage racks
+│   │   │   ├── ZoneContainer.tsx    # Horizontal switcher for expansion pods
+│   │   │   └── ZonePod.tsx          # Modular pod container with thumbnail artwork
 │   │   ├── checkout/                # Rental checkout and confirmation
-│   │   │   ├── RentSummaryBar.tsx   # Sticky bottom bar with total rent & CTA
-│   │   │   ├── RentModal.tsx        # Term selector (1, 3, 6, 12 months) & details
-│   │   │   └── SuccessConfetti.tsx  # Celebratory rent confirmation
+│   │   │   ├── RentSummaryBar.tsx   # Sticky bottom bar with rolling digit ticker
+│   │   │   ├── RentModal.tsx        # Term selector (1, 3, 6, 12, 24 mo) & breakdown
+│   │   │   └── SuccessConfetti.tsx  # Celebratory rent confirmation with confetti
 │   │   └── ui/                      # Primitive reusable UI elements (buttons, badges)
 │   ├── data/
 │   │   └── catalog.ts               # Seed data for furniture and electronics
@@ -257,6 +256,7 @@ A primary UX innovation in the designer is **multi-slot item flexibility**, spec
 
 ## 9. In-Drawer Reversible State Management (Equip & Unequip)
 
-Items can be both equipped and unequipped directly from the catalog drawer without navigating back to the canvas:
+To prevent visual layout shifts (mouse chasing) on the 3D canvas, items can be both equipped and unequipped directly from the catalog drawer without navigating back to the canvas:
 - **Immediate State Reflection**: Toggling an item updates the Zustand store instantly, which cascades to the desk canvas, sticky price ticker, and item counter in real time.
-- **Micro-Interaction Affordance**: Hovering over an active `Equipped` button morphs the style from emerald checkmark to a rose-red `Unequip` action with a trash icon, making reversible actions clear and discoverable.
+- **"Currently Equipped" Header Strip**: The drawer dynamically inserts a strip for the active slot showing what is currently equipped, with a 1-click unequip trash icon.
+- **Micro-Interaction Affordance**: Hovering over an active `Equipped` button morphs the style from emerald checkmark to a rose-red `Unequip` action with a trash icon, making reversible actions clear and discoverable without requiring a hover overlay on the canvas itself.
